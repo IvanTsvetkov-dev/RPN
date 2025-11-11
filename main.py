@@ -34,4 +34,3 @@ def evaluate(expression):
 
 
     return stack.pop()
-
