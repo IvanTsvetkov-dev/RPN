@@ -7,11 +7,11 @@ def evaluate(expression):
     :param expression:
     :return:
     """
-    expression = expression.split()
+    expression = infix_to_postfix(expression).split()
     stack = []
 
     for ele in expression:
-        if ele not in '/*+-':
+        if ele not in '/*+-^':
             stack.append(int(ele))
 
         else:
@@ -29,8 +29,45 @@ def evaluate(expression):
 
             elif ele == '/':
                 stack.append(int(left / right))
+            elif ele == '^':
+                stack.append(int(left ** right))
             else:
                 raise ValueError
 
 
     return stack.pop()
+
+
+def infix_to_postfix(expression):
+    """Фукнция для преобразования из инфиксной в постфиксную
+    :param expression:
+    :return:
+    """
+    precedence = {
+        '+': 1,
+        '-': 1,
+        '*': 2,
+        '/': 2,
+        '^': 3
+    }
+
+    def is_operator(char):
+        return char in precedence
+
+    def is_operand(char):
+        return char.isalnum()
+
+    stack = []
+    postfix = ""
+
+    for char in expression:
+        if is_operand(char):
+            postfix += ' ' + char
+        elif is_operator(char):
+            while stack and is_operator(stack[-1]) and precedence[stack[-1]] >= precedence[char]:
+                postfix += ' ' + stack.pop()
+            stack.append(char)
+
+    while stack:
+        postfix += ' ' + stack.pop()
+    return postfix

@@ -13,22 +13,27 @@ class TestRPN(unittest.TestCase):
     def test_add(self):
         """Правильное работа операции сложения
         """
-        self.assertEqual(evaluate('5 3 +'), 8)
+        self.assertEqual(evaluate('3 + 5'), 8)
 
     def test_subtraction(self):
         """Правильная работа операции вычитания
         """
-        self.assertEqual(evaluate('5 3 -'), 2)
+        self.assertEqual(evaluate('5 - 3'), 2)
 
     def test_multiplication(self):
         """Правильная работа операции умножения
         """
-        self.assertEqual(evaluate('5 3 *'), 15)
+        self.assertEqual(evaluate('5 * 3'), 15)
 
     def test_div(self):
         """Правильная работа операции деления
         """
-        self.assertEqual(evaluate('6 3 /'), 2)
+        self.assertEqual(evaluate('6 / 3'), 2)
+
+    def test_exponentation(self):
+        """Правильная работа возведения в степень
+        """
+        self.assertEqual(evaluate('6 ^ 3'), 216)
 
     def test_pop_one_operation_and_one_number(self):
         """Ошибка при вычислении одного операнда с оператором (IndexError)
@@ -40,8 +45,8 @@ class TestRPN(unittest.TestCase):
     def test_incorrect_operator(self):
         """Ошибка при вводе недопустимых операторов
         """
-        with self.assertRaises(ValueError):
-            evaluate('10 5 +-')
+        with self.assertRaises(IndexError):
+            evaluate('7 +- 3')
 
 
 if __name__ == 'main':
