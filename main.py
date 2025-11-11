@@ -1,6 +1,7 @@
 """Этот модуль предназначен для вычисления RPN
 
 """
+# expression = input()
 
 def evaluate(expression):
     """Функция для вычисления RPN
