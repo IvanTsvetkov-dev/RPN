@@ -63,6 +63,13 @@ def infix_to_postfix(expression):
     for char in expression:
         if is_operand(char):
             postfix += ' ' + char
+        elif char == '(':
+            stack.append(char)
+        elif char == ')':
+            while stack and stack[-1] != '(':
+                postfix += ' ' + stack.pop()
+            if stack and stack[-1] == '(':
+                stack.pop()
         elif is_operator(char):
             while stack and is_operator(stack[-1]) and precedence[stack[-1]] >= precedence[char]:
                 postfix += ' ' + stack.pop()

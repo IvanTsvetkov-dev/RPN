@@ -41,12 +41,21 @@ class TestRPN(unittest.TestCase):
         with self.assertRaises(IndexError):
             evaluate('5 +')
 
-
     def test_incorrect_operator(self):
         """Ошибка при вводе недопустимых операторов
         """
         with self.assertRaises(IndexError):
             evaluate('7 +- 3')
+
+    def test_expression_with_brackets_add(self):
+        """Правильная работа со скобками
+        """
+        self.assertEqual(evaluate('(3 + 5)'), 8)
+
+    def test_expression_with_brackets_subtraction(self):
+        """Правильная работа со скобками
+        """
+        self.assertEqual(evaluate('(3 - 5)'), -2)
 
 
 if __name__ == 'main':
